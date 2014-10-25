@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "AuthenticationPages" do
+describe "Authentication" do
 
   subject { page }
 
@@ -24,6 +24,7 @@ describe "AuthenticationPages" do
       let(:user) { FactoryGirl.create(:user) }
 
       before do
+        #pp user.email
         visit signin_path
         fill_in "Email", with: user.email.upcase
         #fill_in "Email", with: user.email.downcase
@@ -35,17 +36,6 @@ describe "AuthenticationPages" do
       it { should have_link('Profile', href: user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
       it { should_not have_link('Sign in', href: signin_path) }
-
-      describe "after saving the user" do
-        #before { visit signin_path }
-        before { click_button submit }
-        let!(:user) { User.find_by(email: 'hello@example.com') }
-        #let(:user) { FactoryGirl.create(:user) }
-
-        it { should have_link('Sign out') }
-        it { should have_title(user.name) }
-        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-      end
 
       describe "followed by signout" do
         before { click_link "Sign out" }
