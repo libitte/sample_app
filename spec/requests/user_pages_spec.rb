@@ -53,12 +53,12 @@ describe "UserPages" do
     let(:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
 
-    it "should hogehoge" do
-      pp user_path(user)
-      pp user.id
-      pp user.name
-      pp user.email
-    end
+    #it "should hogehoge" do
+    #  pp user_path(user)
+    #  pp user.id
+    #  pp user.name
+    #  pp user.email
+    #end
 
     it { should have_content(user.name) }
     #it { should have_title(user.name) }
