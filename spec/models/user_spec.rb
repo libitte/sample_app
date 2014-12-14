@@ -14,13 +14,25 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:admin) }
+
   it { should be_valid }
+  it { should_not be_admin }
 
   # subjectを使わない場合, 
   # 下記のような形式で記述しなければならず, 冗長となる
   #it "should respond to 'name'" do
   #  expect(@user).to respond_to(:name)
   #end
+
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+
+    it { should be_admin }
+  end
 
   describe "when name is not present" do
     before { @user.name = " " }
