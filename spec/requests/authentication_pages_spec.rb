@@ -172,6 +172,17 @@ describe "Authentication" do
         specify { expect(response).to redirect_to(root_path) }
       end
     end
+
+    describe "admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+
+      before { sign_in admin, no_capybara: true }
+
+      describe "submitting a DELETE request to the Users#destroy action" do
+        before { delete user_path(admin) }
+        specify { expect(response).to redirect_to(root_url) }
+      end
+    end
   end
 
   #describe "GET /authentication_pages" do
